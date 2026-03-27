@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WAFBuster — Origin IP Hunter</title>
+<title>WAFBuster v1.2 — Origin IP Hunter</title>
 <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -20,7 +20,6 @@ html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--silver);font-family:var(--sans);font-size:16px;line-height:1.6;overflow-x:hidden}
 body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.07) 2px,rgba(0,0,0,.07) 4px);pointer-events:none;z-index:1000}
 
-/* ── NAV ── */
 nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:1rem 3rem;display:flex;justify-content:space-between;align-items:center;background:rgba(10,14,15,.82);backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,255,157,.07)}
 .nav-logo{font-family:var(--mono);font-size:18px;color:var(--green);text-shadow:var(--glow);letter-spacing:.06em}
 .nav-logo sup{font-size:10px;color:rgba(0,255,157,.38);letter-spacing:.14em}
@@ -30,45 +29,35 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:1rem 3rem;display:fl
 .nav-cta{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:#000;background:var(--green);padding:8px 22px;cursor:pointer;border:none;text-transform:uppercase;clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);transition:background .2s}
 .nav-cta:hover{background:var(--lime)}
 
-/* ── HERO ── */
 .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:8rem 3rem 4rem;position:relative;overflow:hidden}
 .hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(0,255,157,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,255,157,.03) 1px,transparent 1px);background-size:52px 52px;mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 0%,transparent 100%)}
 .hero-orb{position:absolute;top:15%;right:2%;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(0,255,157,.05) 0%,transparent 70%);filter:blur(50px);pointer-events:none}
-
 .hero-badge{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--green);text-transform:uppercase;border:1px solid rgba(0,255,157,.2);padding:5px 14px;margin-bottom:1.5rem;width:fit-content;background:rgba(0,255,157,.03)}
 .pulse-dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:var(--glow);animation:pulse 2s infinite}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.75)}}
-
 h1.hero-title{font-family:var(--mono);font-size:clamp(2.8rem,7vw,5.8rem);line-height:1.05;font-weight:700;margin-bottom:1.2rem;letter-spacing:-.02em}
 h1.hero-title .t1{display:block;background:linear-gradient(130deg,#00FF9D 0%,#2ECC71 55%,#00d4aa 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 0 28px rgba(0,255,157,.35))}
 h1.hero-title .t2{display:block;color:var(--silver);font-size:clamp(1.5rem,3.5vw,2.9rem);font-weight:300;letter-spacing:.1em}
 .hero-sub{font-size:17px;color:var(--silver2);max-width:520px;margin-bottom:2.5rem;font-weight:300}
 .hero-sub em{color:var(--green);font-style:normal}
 .hero-btns{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:3rem}
-.btn-primary{font-family:var(--mono);font-size:12px;letter-spacing:.1em;color:#000;background:var(--green);padding:14px 32px;text-decoration:none;text-transform:uppercase;clip-path:polygon(12px 0%,100% 0%,calc(100% - 12px) 100%,0% 100%);box-shadow:0 0 24px rgba(0,255,157,.28);transition:all .2s;display:inline-block;cursor:pointer;border:none}
+.btn-primary{font-family:var(--mono);font-size:12px;letter-spacing:.1em;color:#000;background:var(--green);padding:14px 32px;text-transform:uppercase;clip-path:polygon(12px 0%,100% 0%,calc(100% - 12px) 100%,0% 100%);box-shadow:0 0 24px rgba(0,255,157,.28);transition:all .2s;display:inline-block;cursor:pointer;border:none}
 .btn-primary:hover{background:var(--lime);box-shadow:0 0 40px rgba(173,255,47,.5);transform:translateY(-2px)}
-.btn-ghost{font-family:var(--mono);font-size:12px;letter-spacing:.1em;color:var(--green);background:transparent;padding:13px 32px;border:1px solid rgba(0,255,157,.28);text-decoration:none;text-transform:uppercase;transition:all .2s;display:inline-block;cursor:pointer}
+.btn-ghost{font-family:var(--mono);font-size:12px;letter-spacing:.1em;color:var(--green);background:transparent;padding:13px 32px;border:1px solid rgba(0,255,157,.28);text-transform:uppercase;transition:all .2s;display:inline-block;cursor:pointer}
 .btn-ghost:hover{background:rgba(0,255,157,.05);border-color:var(--green)}
-
-/* ── STAT COUNTERS (decrypt effect) ── */
 .hero-stats{display:flex;gap:3rem;flex-wrap:wrap;padding-top:2rem;border-top:1px solid rgba(0,255,157,.1)}
-.stat-num{
-  font-family:var(--mono);font-size:28px;font-weight:700;
-  color:var(--green);text-shadow:var(--glow);display:block;
-  min-width:2ch;
-}
+.stat-num{font-family:var(--mono);font-size:28px;font-weight:700;color:var(--green);text-shadow:var(--glow);display:block;min-width:2ch}
 .stat-label{font-size:11px;color:var(--silver2);letter-spacing:.12em;text-transform:uppercase}
 
-/* ── SECTION COMMON ── */
 .section-label{font-family:var(--mono);font-size:10px;letter-spacing:.22em;color:var(--green);text-transform:uppercase;display:flex;align-items:center;gap:10px;margin-bottom:.7rem}
 .section-label::before{content:'//';color:rgba(0,255,157,.32)}
 .section-title{font-family:var(--mono);font-size:clamp(1.4rem,3vw,2.1rem);color:#fff;margin-bottom:.4rem;font-weight:700}
 .section-sub{font-size:15px;color:var(--silver2);margin-bottom:2.5rem;max-width:500px;font-weight:300}
 
-/* ── TERMINAL ── */
+/* TERMINAL */
 .terminal-wrap{padding:5rem 3rem 4rem;background:linear-gradient(180deg,var(--bg) 0%,var(--bg2) 100%);position:relative;overflow:hidden}
 .term-watermark{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:var(--mono);font-size:clamp(64px,13vw,140px);font-weight:700;letter-spacing:-.03em;color:transparent;-webkit-text-stroke:1px rgba(0,255,157,.05);white-space:nowrap;pointer-events:none;user-select:none;animation:bleed 5s ease-in-out infinite alternate;z-index:0}
-@keyframes bleed{0%{-webkit-text-stroke:1px rgba(0,255,157,.04);letter-spacing:-.04em;text-shadow:none}100%{-webkit-text-stroke:1px rgba(173,255,47,.1);letter-spacing:-.01em;text-shadow:0 0 60px rgba(0,255,157,.08),0 0 120px rgba(0,255,157,.04)}}
+@keyframes bleed{0%{-webkit-text-stroke:1px rgba(0,255,157,.04);letter-spacing:-.04em}100%{-webkit-text-stroke:1px rgba(173,255,47,.1);letter-spacing:-.01em;text-shadow:0 0 60px rgba(0,255,157,.08),0 0 120px rgba(0,255,157,.04)}}
 .terminal-inner{position:relative;z-index:1}
 .term-head-row{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:1.5rem;flex-wrap:wrap;gap:1rem}
 .term-toggle-btn{font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--silver2);background:transparent;border:1px solid rgba(255,255,255,.08);padding:7px 18px;cursor:pointer;text-transform:uppercase;transition:all .2s;display:flex;align-items:center;gap:8px;white-space:nowrap}
@@ -95,7 +84,7 @@ h1.hero-title .t2{display:block;color:var(--silver);font-size:clamp(1.5rem,3.5vw
 .t-enc{color:rgba(0,255,157,.3);letter-spacing:.05em}
 .t-classified{color:rgba(173,255,47,.25);letter-spacing:.04em;filter:blur(.5px)}
 
-/* ── PHASES ── */
+/* PHASES */
 .features-wrap{padding:5rem 3rem;background:var(--bg)}
 .phases-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:1px;background:rgba(0,255,157,.055);border:1px solid rgba(0,255,157,.055);margin-top:2rem}
 .phase-card{background:var(--bg);padding:26px 28px;position:relative;overflow:hidden;transition:background .25s}
@@ -108,7 +97,7 @@ h1.hero-title .t2{display:block;color:var(--silver);font-size:clamp(1.5rem,3.5vw
 .phase-tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:12px}
 .tag{font-family:var(--mono);font-size:10px;letter-spacing:.06em;color:rgba(0,255,157,.55);border:1px solid rgba(0,255,157,.13);padding:2px 8px}
 
-/* ── TECHNIQUES ── */
+/* TECHNIQUES */
 .secret-wrap{padding:5rem 3rem;background:linear-gradient(180deg,var(--bg2) 0%,var(--bg) 100%)}
 .secret-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(0,255,157,.055);border:1px solid rgba(0,255,157,.055);margin-top:2rem}
 @media(max-width:760px){.secret-grid{grid-template-columns:1fr}}
@@ -122,7 +111,7 @@ h1.hero-title .t2{display:block;color:var(--silver);font-size:clamp(1.5rem,3.5vw
 .encoded-block{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:rgba(0,255,157,.35);background:rgba(0,0,0,.42);border-left:2px solid rgba(0,255,157,.18);padding:12px 14px;word-break:break-all;line-height:1.85;position:relative}
 .encoded-block::before{content:'[ CLASSIFIED ]';position:absolute;top:-9px;right:10px;font-size:9px;letter-spacing:.2em;color:var(--lime);background:var(--bg);padding:0 6px}
 
-/* ── PRICING ── */
+/* PRICING */
 .pricing-wrap{padding:5rem 3rem;background:var(--bg)}
 .pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1px;background:rgba(0,255,157,.055);border:1px solid rgba(0,255,157,.055);margin-top:2rem}
 .price-card{background:var(--bg);padding:36px 28px;position:relative;overflow:hidden;transition:background .2s}
@@ -140,34 +129,15 @@ h1.hero-title .t2{display:block;color:var(--silver);font-size:clamp(1.5rem,3.5vw
 .btn-plan:hover{background:rgba(0,255,157,.06);border-color:var(--green)}
 .btn-plan.featured-btn{background:var(--green);color:#000;border-color:var(--green);box-shadow:0 0 24px rgba(0,255,157,.25)}
 .btn-plan.featured-btn:hover{background:var(--lime)}
+.price-contact{font-family:var(--mono);font-size:13px;color:var(--lime);text-shadow:0 0 8px rgba(173,255,47,.4);margin-bottom:6px;font-weight:700}
+.price-contact-sub{font-size:12px;color:var(--silver2);margin-bottom:20px}
 
-/* ── CONTACT MODAL ── */
-.modal-overlay{
-  position:fixed;inset:0;z-index:900;
-  background:rgba(0,0,0,.75);
-  backdrop-filter:blur(8px);
-  display:flex;align-items:center;justify-content:center;
-  opacity:0;pointer-events:none;
-  transition:opacity .25s;
-}
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;z-index:900;background:rgba(0,0,0,.75);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .25s}
 .modal-overlay.open{opacity:1;pointer-events:all}
-.modal-box{
-  background:var(--bg2);
-  border:1px solid rgba(0,255,157,.22);
-  box-shadow:0 0 80px rgba(0,255,157,.1),0 0 160px rgba(0,255,157,.04);
-  padding:36px 32px;
-  max-width:420px;width:90%;
-  position:relative;
-  transform:translateY(20px) scale(.97);
-  transition:transform .25s;
-}
+.modal-box{background:var(--bg2);border:1px solid rgba(0,255,157,.22);box-shadow:0 0 80px rgba(0,255,157,.1);padding:36px 32px;max-width:420px;width:90%;position:relative;transform:translateY(20px) scale(.97);transition:transform .25s}
 .modal-overlay.open .modal-box{transform:translateY(0) scale(1)}
-.modal-close{
-  position:absolute;top:14px;right:16px;
-  font-family:var(--mono);font-size:18px;
-  color:var(--silver2);background:transparent;border:none;cursor:pointer;
-  line-height:1;transition:color .2s;
-}
+.modal-close{position:absolute;top:14px;right:16px;font-family:var(--mono);font-size:18px;color:var(--silver2);background:transparent;border:none;cursor:pointer;line-height:1;transition:color .2s}
 .modal-close:hover{color:var(--green)}
 .modal-tier{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:rgba(0,255,157,.45);text-transform:uppercase;margin-bottom:8px}
 .modal-title{font-family:var(--mono);font-size:20px;font-weight:700;color:#fff;margin-bottom:6px}
@@ -175,29 +145,17 @@ h1.hero-title .t2{display:block;color:var(--silver);font-size:clamp(1.5rem,3.5vw
 .modal-divider{height:1px;background:rgba(0,255,157,.1);margin:20px 0}
 .modal-contact-label{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:rgba(0,255,157,.4);text-transform:uppercase;margin-bottom:12px}
 .modal-links{display:flex;flex-direction:column;gap:10px}
-.modal-link{
-  display:flex;align-items:center;gap:12px;
-  font-family:var(--mono);font-size:13px;letter-spacing:.05em;
-  color:var(--green);text-decoration:none;
-  border:1px solid rgba(0,255,157,.18);
-  padding:12px 16px;
-  transition:all .2s;
-}
+.modal-link{display:flex;align-items:center;gap:12px;font-family:var(--mono);font-size:13px;letter-spacing:.05em;color:var(--green);text-decoration:none;border:1px solid rgba(0,255,157,.18);padding:12px 16px;transition:all .2s}
 .modal-link:hover{background:rgba(0,255,157,.06);border-color:rgba(0,255,157,.4);box-shadow:var(--glow)}
 .modal-link svg{width:15px;height:15px;fill:currentColor;flex-shrink:0}
 .modal-link-info{display:flex;flex-direction:column;gap:1px}
 .modal-link-label{font-size:9px;letter-spacing:.2em;color:var(--silver2);text-transform:uppercase}
 .modal-link-value{font-size:13px;color:var(--green)}
 
-/* ── FOUNDER ── */
+/* FOUNDER */
 .contact-wrap{padding:5rem 3rem;background:var(--bg2);border-top:1px solid rgba(0,255,157,.06)}
-.founder-card{
-  display:flex;flex-direction:column;align-items:center;text-align:center;
-  max-width:520px;margin:0 auto 2rem;padding:36px 32px;
-  background:rgba(0,255,157,.02);
-  border:1px solid rgba(0,255,157,.1);
-}
-.founder-avatar{width:88px;height:88px;border-radius:50%;border:2px solid rgba(0,255,157,.35);box-shadow:var(--glow);margin:0 auto 16px;flex-shrink:0;overflow:hidden;background:#0d2a1e}
+.founder-card{display:flex;flex-direction:column;align-items:center;text-align:center;max-width:520px;margin:0 auto 2rem;padding:36px 32px;background:rgba(0,255,157,.02);border:1px solid rgba(0,255,157,.1)}
+.founder-avatar{width:88px;height:88px;border-radius:50%;border:2px solid rgba(0,255,157,.35);box-shadow:var(--glow);margin:0 auto 16px;overflow:hidden;background:#0d2a1e}
 .founder-avatar img{width:100%;height:100%;object-fit:cover;border-radius:50%}
 .founder-name{font-family:var(--mono);font-size:19px;font-weight:700;color:#fff;margin-bottom:3px}
 .founder-role{font-size:13px;color:var(--green);margin-bottom:12px;font-family:var(--mono);letter-spacing:.06em}
@@ -207,7 +165,6 @@ h1.hero-title .t2{display:block;color:var(--silver);font-size:clamp(1.5rem,3.5vw
 .contact-link:hover{background:rgba(0,255,157,.05);border-color:var(--green)}
 .contact-link svg{width:13px;height:13px;fill:currentColor;flex-shrink:0}
 
-/* ── FOOTER ── */
 footer{padding:2rem 3rem;border-top:1px solid rgba(0,255,157,.05);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
 .footer-logo{font-family:var(--mono);font-size:15px;color:var(--green);text-shadow:var(--glow)}
 .footer-stack{font-family:var(--mono);font-size:11px;color:var(--silver2);letter-spacing:.04em}
@@ -220,13 +177,13 @@ footer{padding:2rem 3rem;border-top:1px solid rgba(0,255,157,.05);display:flex;j
 </head>
 <body>
 
-<!-- CONTACT MODAL -->
+<!-- MODAL -->
 <div class="modal-overlay" id="contactModal" onclick="closeModal(event)">
   <div class="modal-box">
     <button class="modal-close" onclick="closeModalDirect()">&times;</button>
     <div class="modal-tier" id="modalTier">Pro Hunter</div>
-    <div class="modal-title" id="modalTitle">Get Pro Access</div>
-    <div class="modal-sub">Reach out through either channel and mention the plan you want. Response within 24 hours.</div>
+    <div class="modal-title" id="modalTitle">Get Access</div>
+    <div class="modal-sub">Reach out through either channel. Mention your plan and I'll get back to you within 24 hours.</div>
     <div class="modal-divider"></div>
     <div class="modal-contact-label">Contact via</div>
     <div class="modal-links">
@@ -241,16 +198,15 @@ footer{padding:2rem 3rem;border-top:1px solid rgba(0,255,157,.05);display:flex;j
         <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
         <div class="modal-link-info">
           <span class="modal-link-label">LinkedIn</span>
-          <span class="modal-link-value">linkedin.com/in/mohammed-zureigat-42b3303a2</span>
+          <span class="modal-link-value">Mohammed Zureigat</span>
         </div>
       </a>
     </div>
   </div>
 </div>
 
-<!-- NAV -->
 <nav>
-  <div class="nav-logo">WAFBuster<sup>v1.1</sup></div>
+  <div class="nav-logo">WAFBuster<sup>v1.2</sup></div>
   <ul class="nav-links">
     <li><a href="#features">Phases</a></li>
     <li><a href="#terminal">Demo</a></li>
@@ -265,22 +221,21 @@ footer{padding:2rem 3rem;border-top:1px solid rgba(0,255,157,.05);display:flex;j
 <section class="hero">
   <div class="hero-grid"></div>
   <div class="hero-orb"></div>
-
-  <div class="hero-badge"><span class="pulse-dot"></span>Active Development &mdash; Arch Linux &middot; Go 1.21+</div>
+  <div class="hero-badge"><span class="pulse-dot"></span>v1.2 Released &mdash; 60+ WAF ASNs &middot; 12 JA3 Profiles &middot; 20 Shodan Queries</div>
   <h1 class="hero-title">
     <span class="t1">WAFBuster</span>
     <span class="t2">Origin IP Hunter</span>
   </h1>
-  <p class="hero-sub">A <em>7-phase recon engine</em> that cuts through CDN layers, impersonates real browsers at the TLS level, and surfaces the server <em>hiding behind Cloudflare</em>.</p>
+  <p class="hero-sub">A <em>7-phase recon engine</em> that cuts through CDN layers, impersonates real browsers at the TLS level, and surfaces the server <em>hiding behind WAF</em>.</p>
   <div class="hero-btns">
     <button class="btn-primary" onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})">Get Subscription</button>
     <button class="btn-ghost" onclick="watchItRun()">Watch It Run &rarr;</button>
   </div>
   <div class="hero-stats">
-    <div class="stat"><span class="stat-num" data-target="7" data-id="s0">--</span><span class="stat-label">Recon Phases</span></div>
-    <div class="stat"><span class="stat-num" data-target="16" data-id="s1">--</span><span class="stat-label">WAF ASNs Filtered</span></div>
-    <div class="stat"><span class="stat-num" data-target="12" data-id="s2">--</span><span class="stat-label">Shodan Queries</span></div>
-    <div class="stat"><span class="stat-num" data-target="6" data-id="s3">--</span><span class="stat-label">JA3 Profiles</span></div>
+    <div class="stat"><span class="stat-num" data-target="7">--</span><span class="stat-label">Recon Phases</span></div>
+    <div class="stat"><span class="stat-num" data-target="60">--</span><span class="stat-label">WAF ASNs Filtered</span></div>
+    <div class="stat"><span class="stat-num" data-target="20">--</span><span class="stat-label">Shodan Queries</span></div>
+    <div class="stat"><span class="stat-num" data-target="12">--</span><span class="stat-label">JA3 Profiles</span></div>
   </div>
 </section>
 
@@ -302,7 +257,7 @@ footer{padding:2rem 3rem;border-top:1px solid rgba(0,255,157,.05);display:flex;j
     <div class="terminal" id="termBox">
       <div class="term-header" onclick="toggleTerm()">
         <span class="term-dot td1"></span><span class="term-dot td2"></span><span class="term-dot td3"></span>
-        <span class="term-title">wafbuster &mdash; origin-hunt &mdash; 80&times;24</span>
+        <span class="term-title">wafbuster v1.2 &mdash; origin-hunt &mdash; 80&times;24</span>
         <span class="term-hint" id="termHint">click to collapse</span>
       </div>
       <div class="term-body" id="termBody"></div>
@@ -316,14 +271,14 @@ footer{padding:2rem 3rem;border-top:1px solid rgba(0,255,157,.05);display:flex;j
   <h2 class="section-title fade-up">7-Phase Pipeline</h2>
   <p class="section-sub fade-up">Each phase feeds intelligence into the next. Nothing runs blind.</p>
   <div class="phases-grid">
-    <div class="phase-card fade-up"><div class="phase-num">Phase 01</div><div class="phase-name">Connectivity + WAF Detection</div><div class="phase-desc">Live probe with 5 bypass payloads. Response delta analysis. Header fingerprinting against 8 known WAF vendor signatures.</div><div class="phase-tags"><span class="tag">payload probe</span><span class="tag">header diff</span></div></div>
-    <div class="phase-card fade-up"><div class="phase-num">Phase 02</div><div class="phase-name">Smart Favicon Discovery</div><div class="phase-desc">Parses live HTML for &lt;link rel="icon"&gt; — finds the real favicon even when it's not at /favicon.ico. Computes Shodan-compatible MurmurHash3.</div><div class="phase-tags"><span class="tag">HTML parser</span><span class="tag">MurmurHash3</span></div></div>
-    <div class="phase-card fade-up"><div class="phase-num">Phase 03</div><div class="phase-name">Subdomain Enumeration</div><div class="phase-desc">4 parallel passive sources: subfinder, assetfinder, crt.sh certificate transparency, HackerTarget. Auto-deduplication.</div><div class="phase-tags"><span class="tag">4 sources</span><span class="tag">concurrent</span></div></div>
-    <div class="phase-card fade-up"><div class="phase-num">Phase 04</div><div class="phase-name">DNS History + IP Collection</div><div class="phase-desc">Resolves all subdomains concurrently and pulls historical DNS records, surfacing IPs that pre-date CDN deployment.</div><div class="phase-tags"><span class="tag">DNS history</span><span class="tag">IP pool</span></div></div>
-    <div class="phase-card fade-up"><div class="phase-num">Phase 04.5</div><div class="phase-name">ASN Filtering</div><div class="phase-desc">Live ASN classification via ipinfo.io. Automatically excludes 16 known WAF/CDN ranges — Cloudflare, Akamai, AWS, Fastly, Imperva, Sucuri, Azure.</div><div class="phase-tags"><span class="tag">16 ASNs</span><span class="tag">zero noise</span></div></div>
-    <div class="phase-card fade-up"><div class="phase-num">Phase 05</div><div class="phase-name">Multi-Strategy Origin Probe</div><div class="phase-desc">uTLS browser impersonation, SNI toggle, TLS 1.0&rarr;1.3 cycling, HTTP Host injection. SSL certificate CN + SAN matching.</div><div class="phase-tags"><span class="tag">uTLS</span><span class="tag">cert inspect</span><span class="tag">--resolve</span></div></div>
-    <div class="phase-card fade-up"><div class="phase-num">Phase 05.5</div><div class="phase-name">Second-Order Bypass</div><div class="phase-desc">Activates on 401/403/418 responses against the origin. Rotates spoofing headers across multiple IP categories to probe local WAF ACL weaknesses.</div><div class="phase-tags"><span class="tag">layer-2</span><span class="tag">ACL probe</span></div></div>
-    <div class="phase-card fade-up"><div class="phase-num">Phase 06</div><div class="phase-name">Shodan API</div><div class="phase-desc">12 auto-built queries: favicon hash, cert serial, SHA-256 fingerprint, SAN, hostname, HTTP title. All results verified by the full probe engine.</div><div class="phase-tags"><span class="tag">12 queries</span><span class="tag">passive OSINT</span></div></div>
+    <div class="phase-card fade-up"><div class="phase-num">Phase 01</div><div class="phase-name">Connectivity + WAF Detection</div><div class="phase-desc">10 attack payloads, 17 vendor-specific response headers, Server signature map for 10 WAF vendors, and a Rate Limit Test firing 12 rapid requests to catch throttle-based WAFs.</div><div class="phase-tags"><span class="tag">10 payloads</span><span class="tag">17 headers</span><span class="tag">rate limit test</span></div></div>
+    <div class="phase-card fade-up"><div class="phase-num">Phase 02</div><div class="phase-name">Smart Favicon Discovery</div><div class="phase-desc">5-strategy engine: standard &lt;link rel="icon"&gt;, fuzzy keyword scan for any href containing "favicon", Web App Manifest parsing, /favicon.svg probe, then /favicon.ico fallback.</div><div class="phase-tags"><span class="tag">5 strategies</span><span class="tag">keyword scan</span><span class="tag">MurmurHash3</span></div></div>
+    <div class="phase-card fade-up"><div class="phase-num">Phase 03</div><div class="phase-name">Subdomain Enumeration</div><div class="phase-desc">4 parallel passive sources: subfinder, assetfinder, crt.sh certificate transparency, HackerTarget. Smart relevance filter removes wildcards and off-target domains before IP resolution.</div><div class="phase-tags"><span class="tag">4 sources</span><span class="tag">smart filter</span></div></div>
+    <div class="phase-card fade-up"><div class="phase-num">Phase 04</div><div class="phase-name">DNS History + IP Collection</div><div class="phase-desc">Concurrent subdomain-to-IP resolution. Pulls historical DNS records from HackerTarget to surface IPs that were exposed before the CDN was deployed.</div><div class="phase-tags"><span class="tag">DNS history</span><span class="tag">concurrent</span></div></div>
+    <div class="phase-card fade-up"><div class="phase-num">Phase 04.5</div><div class="phase-name">ASN + IP Prefix Filtering</div><div class="phase-desc">Two-layer filter: instant IP prefix table (60+ Cloudflare, Akamai, Fastly, DDoS-Guard ranges — no API call), then live ASN lookup across 60+ WAF/CDN autonomous systems.</div><div class="phase-tags"><span class="tag">60+ ASNs</span><span class="tag">IP prefix table</span><span class="tag">zero noise</span></div></div>
+    <div class="phase-card fade-up"><div class="phase-num">Phase 05</div><div class="phase-name">Multi-Strategy Origin Probe</div><div class="phase-desc">12 uTLS browser profiles (Chrome, Firefox, Safari, Edge, Randomized) × SNI toggle × TLS 1.0&rarr;1.3 cycling × HTTP Host injection. SSL certificate CN + SAN matching. False-positive filter built in.</div><div class="phase-tags"><span class="tag">12 JA3 profiles</span><span class="tag">cert forensics</span><span class="tag">FP filter</span></div></div>
+    <div class="phase-card fade-up"><div class="phase-num">Phase 05.5</div><div class="phase-name">Second-Order Bypass</div><div class="phase-desc">Fires on 401/403/418. 17 spoof headers × 6 IP groups (loopback, private, CDN-trusted, link-local 169.254.x, reflective) × 25 paths including URL-encoded variants and sensitive endpoints.</div><div class="phase-tags"><span class="tag">17 headers</span><span class="tag">6 IP groups</span><span class="tag">25 paths</span></div></div>
+    <div class="phase-card fade-up"><div class="phase-num">Phase 06</div><div class="phase-name">Shodan API</div><div class="phase-desc">20 auto-built queries: favicon hash, cert serial, SHA-256 fingerprint, SAN, subject org, issuer CN, HTTP title, hostname, component, port-specific combos, domain search. Every result verified by Phase 05.</div><div class="phase-tags"><span class="tag">20 queries</span><span class="tag">passive OSINT</span></div></div>
   </div>
 </section>
 
@@ -331,32 +286,37 @@ footer{padding:2rem 3rem;border-top:1px solid rgba(0,255,157,.05);display:flex;j
 <section class="secret-wrap" id="secret">
   <div class="section-label">Techniques</div>
   <h2 class="section-title fade-up">Under the Hood</h2>
-  <p class="section-sub fade-up">The mechanics that separate a real recon tool from a script.</p>
+  <p class="section-sub fade-up">The mechanics that separate a real recon engine from a script.</p>
   <div class="secret-grid">
+
     <div class="secret-card fade-up">
       <div class="secret-sym">[ TLS-GHOST ]</div>
       <div class="secret-title">JA3 Browser Impersonation</div>
-      <div class="secret-brief">Modern WAFs fingerprint the TLS handshake, not just the User-Agent string. A default Go HTTP client produces a distinct JA3 hash that gets blocked immediately. WAFBuster reproduces the exact ClientHello of real browsers at the byte level using uTLS — making the connection indistinguishable from Chrome or Firefox to any TLS inspection system.</div>
-      <div class="encoded-block">Q2hyb21lX0F1dG8gfCBGaXJlZm94X0F1dG8gfCBTYWZh<br>cmlfQXV0byB8IFNhZmFyaUlPU19BdXRvIHwgQ2hyb21l<br>XzEyMCB8IEZpcmVmb3hfMTIw<br><br>// JA3 != "Go-http-client/2.0"<br>// JA3 == Chrome/124 &nbsp;[PASSED]</div>
+      <div class="secret-brief">Modern WAFs fingerprint the TLS handshake, not just headers. WAFBuster rotates 12 real browser ClientHello profiles using uTLS — Chrome, Firefox, Safari, Edge, iOS, Randomized — each paired with a matching User-Agent. Cloudflare sees a human, not Go-http-client.</div>
+      <div class="encoded-block">43 68 72 6F 6D 65 5F 41 75 74 6F 20 7C 20 46 69<br>72 65 66 6F 78 5F 41 75 74 6F 20 7C 20 53 61 66<br>61 72 69 20 7C 20 45 64 67 65 20 7C 20 52 61 6E<br><br>// 12 profiles &nbsp;JA3 != Go-http-client<br>// SNI on/off &nbsp;&times;&nbsp; TLS 1.0 &rarr; 1.3 &nbsp;[GHOST]</div>
     </div>
+
+    <div class="secret-card fade-up">
+      <div class="secret-sym">[ IP-PREFIX ]</div>
+      <div class="secret-title">Instant WAF IP Recognition</div>
+      <div class="secret-brief">Before spending an API call on ASN lookup, WAFBuster checks a built-in IP prefix table covering Cloudflare (104.x, 172.64-71.x), Akamai (23.x ranges), Fastly (151.101.x), DDoS-Guard, and Sucuri. Known WAF IPs are blocked in microseconds — zero API quota used.</div>
+      <div class="encoded-block">// prefix_check(104.21.44.12)<br>// match: 104.21. &rarr; Cloudflare<br>// excluded [no API call needed]<br><br>// 60+ ASN entries &nbsp;+ IP prefix table<br>// two-layer filter &nbsp;[ZERO NOISE]</div>
+    </div>
+
     <div class="secret-card fade-up">
       <div class="secret-sym">[ LAYER-2 ]</div>
       <div class="secret-title">Second-Order WAF Bypass</div>
-      <div class="secret-brief">Bypassing the CDN edge is only half the job. Many origin servers run a second WAF layer locally. When WAFBuster encounters a 401, 403, or 418 on a confirmed origin, it probes whether the server's access control layer trusts specific HTTP headers that indicate an internal or trusted network source.</div>
-      <div class="encoded-block">WC1Gb3J3YXJkZWQtRm9yOiAxMjcuMC4wLjEgfAoKWC1P<br>cmlnaW5hdGluZy1JUDogMTkyLjE2OC4xLjEgfAoKWC1S<br>ZW1vdGUtSVA6IDEwLjAuMC4xIHwKClgtQ2xpZW50LVJF<br>RkxFQ1RJVUU=<br><br>// status_before = 403<br>// status_after &nbsp;= 200 &nbsp;[ACL_CLEARED]</div>
+      <div class="secret-brief">Bypassing the CDN edge is only half the job. When WAFBuster finds a 401, 403, or 418 on a confirmed origin, it probes the local WAF ACL with 17 spoof headers across 6 IP categories — including the origin's own IP (reflective injection) and the AWS metadata address.</div>
+      <div class="encoded-block">WC1Gb3J3YXJkZWQtRm9yOiAxNjkuMjU0LjE2OS4yNTQg<br>fCBYLVJlYWwtSVA6IDEyNy4wLjAuMSB8IFgtQ2xpZW50<br>LUlQOiAxOTIuMTY4LjEuMSB8IFgtSG9zdDogPFJFRkw+<br><br>// 17 headers &nbsp;&times;&nbsp; 6 IP groups &nbsp;&times;&nbsp; 25 paths<br>// 403 &rarr; 200 on /admin &nbsp;[ACL_CLEARED]</div>
     </div>
+
     <div class="secret-card fade-up">
       <div class="secret-sym">[ CERT-FORGE ]</div>
       <div class="secret-title">SSL Certificate Forensics</div>
-      <div class="secret-brief">WAFBuster connects directly to each candidate IP on port 443 and extracts the leaf TLS certificate without completing a full HTTP transaction. It checks the Common Name and all Subject Alternative Names for a match against the target domain. A certificate match is hard forensic evidence — no HTTP response is required to confirm an origin.</div>
+      <div class="secret-brief">WAFBuster connects directly to port 443 on each candidate IP and pulls the leaf TLS certificate without completing an HTTP transaction. A CN or SAN match against the target domain is hard forensic evidence — no HTTP response needed to confirm an origin.</div>
       <div class="encoded-block">c3NsLmNlcnQuc2VyaWFsOjxTRVJJQUw+IHwKc3NsLmNl<br>cnQuZmluZ2VycHJpbnQuc2hhMjU2OjxGUD4gfApzc2wu<br>Y2VydC5zdWJqZWN0LmNuOjxST09UPg==<br><br>// CN = "target.com" on IP 153.x.x.x<br>// ORIGIN_CONFIRMED &nbsp;&rarr; no HTTP req</div>
     </div>
-    <div class="secret-card fade-up">
-      <div class="secret-sym">[ REFLECT ]</div>
-      <div class="secret-title">Reflective IP Injection</div>
-      <div class="secret-brief">Some origin servers are configured to automatically trust requests that appear to originate from a known address — including their own. After discovering an origin IP, WAFBuster feeds it back into the request headers. A server whose ACL grants elevated trust to its own address will silently downgrade a blocked response to an accessible one.</div>
-      <div class="encoded-block">// origin_discovered = 153.149.33.44<br>// inject: X-Forwarded-For: 153.149.33.44<br>// inject: X-Real-IP: &nbsp;&nbsp;&nbsp;&nbsp;153.149.33.44<br><br>// ACL: ALLOW IF src == self<br>// result: /admin &nbsp;403 &rarr; 200</div>
-    </div>
+
   </div>
 </section>
 
@@ -364,35 +324,48 @@ footer{padding:2rem 3rem;border-top:1px solid rgba(0,255,157,.05);display:flex;j
 <section class="pricing-wrap" id="pricing">
   <div class="section-label">Access</div>
   <h2 class="section-title fade-up">Subscription Tiers</h2>
-  <p class="section-sub fade-up">One binary that replaces five separate tools and hours of manual recon work.</p>
+  <p class="section-sub fade-up">One binary. Pre-compiled. Zero dependencies. Drop it and run.</p>
   <div class="pricing-grid">
+
     <div class="price-card fade-up">
       <div class="price-tier">Solo Hunter</div>
       <div class="price-amount">$9<span>/mo</span></div>
       <div class="price-period">~$108 / year &middot; 1 seat</div>
       <ul class="price-features">
-        <li>Full 7-phase engine</li><li>Pre-compiled Arch Linux binary</li><li>GitHub releases access</li><li>Community Discord</li><li>5 scans / day</li>
+        <li>Full 7-phase engine</li>
+        <li>Pre-compiled binary (all Linux distros)</li>
+        <li>5 scans / day</li>
+        <li>Regular updates delivered directly</li>
       </ul>
       <button class="btn-plan" onclick="openModal('Solo Hunter','Get Solo Access','Solo')">Get Solo</button>
     </div>
+
     <div class="price-card featured fade-up">
       <div class="price-tier">Pro Hunter</div>
       <div class="price-amount">$19<span>/mo</span></div>
       <div class="price-period">~$228 / year &middot; 1 seat</div>
       <ul class="price-features">
-        <li>Everything in Solo</li><li>Unlimited scans</li><li>Shodan API integration</li><li>uTLS + JA3 bypass module</li><li>Second-order bypass module</li><li>JSON / Markdown reports</li><li>Priority feature requests</li><li>Email support</li>
+        <li>Everything in Solo</li>
+        <li>Unlimited scans</li>
+        <li>Priority feature requests</li>
+        <li>Email support</li>
       </ul>
       <button class="btn-plan featured-btn" onclick="openModal('Pro Hunter','Get Pro Access','Pro')">Get Pro</button>
     </div>
+
     <div class="price-card fade-up">
       <div class="price-tier">Team / Firm</div>
-      <div class="price-amount">$49<span>/mo</span></div>
-      <div class="price-period">~$588 / year &middot; 5 seats</div>
+      <div class="price-contact">Contact Founder</div>
+      <div class="price-contact-sub">Custom seats &middot; volume pricing &middot; invoice billing</div>
       <ul class="price-features">
-        <li>Everything in Pro</li><li>5 seats included</li><li>Custom ASN blocklists</li><li>API access (roadmap)</li><li>Private Slack channel</li><li>Monthly 1:1 call</li><li>Invoice billing</li>
+        <li>Everything in Pro</li>
+        <li>Multiple seats — any quantity</li>
+        <li>Private Slack channel</li>
+        <li>Monthly 1:1 call</li>
       </ul>
-      <button class="btn-plan" onclick="openModal('Team / Firm','Get Team Access','Team')">Get Team</button>
+      <button class="btn-plan" onclick="openModal('Team / Firm','Get Team Access','Team')">Contact Founder</button>
     </div>
+
   </div>
   <p style="margin-top:1.5rem;font-family:var(--mono);font-size:10px;color:#2a3a28;text-align:center;letter-spacing:.08em">FOR AUTHORIZED SECURITY TESTING ONLY &mdash; BUG BOUNTY PROGRAMS &amp; OWNED INFRASTRUCTURE</p>
 </section>
@@ -403,16 +376,11 @@ footer{padding:2rem 3rem;border-top:1px solid rgba(0,255,157,.05);display:flex;j
   <h2 class="section-title fade-up" style="text-align:center">Get in Touch</h2>
   <div class="founder-card fade-up">
     <div class="founder-avatar" id="founderAvatar">
-      <img
-        src="https://media.licdn.com/dms/image/v2/D4D03AQEhGL1cxxUeJg/profile-displayphoto-crop_800_800/B4DZwfGB6QJ0AI-/0/1770048201082?e=1775692800&v=beta&t=Xp5JI2o0WopZEoPBTFitUYbTLX7oaSZ-VGAN7-1cii8"
-        alt="Mohammed Zureigat"
-        referrerpolicy="no-referrer"
-        crossorigin="anonymous"
-        loading="eager"
-        onerror="this.style.display='none';document.getElementById('founderAvatar').innerHTML='<span style=\'display:flex;align-items:center;justify-content:center;width:100%;height:100%;font-family:var(--mono);font-size:22px;font-weight:700;color:var(--green);text-shadow:var(--glow)\'>MZ</span>'"
-      >
+      <img src="https://media.licdn.com/dms/image/v2/"
+        alt="Xia0checkmate" referrerpolicy="no-referrer" crossorigin="anonymous" loading="eager"
+        onerror="this.style.display='none';document.getElementById('founderAvatar').innerHTML='<span style=\'display:flex;align-items:center;justify-content:center;width:100%;height:100%;font-family:var(--mono);font-size:22px;font-weight:700;color:var(--green)\'>MZ</span>'">
     </div>
-    <div class="founder-name">WAFBuster Founder</div>
+    <div class="founder-name">Xia0checkmate</div>
     <div class="founder-role">AppSec Researcher &middot; Bug Bounty Hunter</div>
     <div class="founder-bio">Building tools that security researchers actually need. WAFBuster was born from hours of manual <code style="color:var(--green);font-size:11px;background:rgba(0,255,157,.06);padding:1px 5px">curl --resolve</code> sessions against Cloudflare-protected targets on real bug bounty programs.</div>
     <div class="contact-links">
@@ -429,191 +397,157 @@ footer{padding:2rem 3rem;border-top:1px solid rgba(0,255,157,.05);display:flex;j
 </section>
 
 <footer>
-  <div class="footer-logo">WAFBuster <span style="color:rgba(0,255,157,.28);font-size:10px">// v1.1</span></div>
-  <div class="footer-stack">Arch Linux &middot; Go &middot; uTLS &middot; subfinder &middot; assetfinder &middot; Shodan</div>
+  <div class="footer-logo">WAFBuster <span style="color:rgba(0,255,157,.28);font-size:10px">// v1.2</span></div>
+  <div class="footer-stack">Go &middot; uTLS &middot; subfinder &middot; assetfinder &middot; Shodan &middot; 60+ ASNs</div>
   <div class="footer-legal">For authorized security testing only</div>
 </footer>
 
 <script>
-// ── Modal ──
+// Modal
 function openModal(tier, title, plan) {
   document.getElementById('modalTier').textContent = tier;
   document.getElementById('modalTitle').textContent = title;
-  const email = document.getElementById('modalEmail');
-  email.href = 'mailto:ops.wafbuster@proton.me?subject=WAFBuster%20' + encodeURIComponent(plan);
-  email.querySelector('.modal-link-value').textContent = 'ops.wafbuster@proton.me';
+  document.getElementById('modalEmail').href = 'mailto:ops.wafbuster@proton.me?subject=WAFBuster%20' + encodeURIComponent(plan);
   document.getElementById('contactModal').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
-function closeModal(e) {
-  if (e.target === document.getElementById('contactModal')) closeModalDirect();
-}
-function closeModalDirect() {
-  document.getElementById('contactModal').classList.remove('open');
-  document.body.style.overflow = '';
-}
+function closeModal(e) { if(e.target===document.getElementById('contactModal')) closeModalDirect(); }
+function closeModalDirect() { document.getElementById('contactModal').classList.remove('open'); document.body.style.overflow=''; }
 document.addEventListener('keydown', e => { if(e.key==='Escape') closeModalDirect(); });
 
-// ── Fade-up observer ──
+// Fade-up
 const obs = new IntersectionObserver(es => es.forEach(e => {
   if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}
 }),{threshold:.12});
 document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
 
-// ── Stat decrypt animation ──
-// Characters used for the "decrypting" effect
-const glyphSet = '0123456789ABCDEFabcdef#@!%&?';
-function decryptCount(el, target, duration) {
-  const start = performance.now();
-  const frames = Math.round(duration / 40);
-  let frame = 0;
-  function step(now) {
-    frame++;
-    const progress = Math.min(frame / frames, 1);
-    if (progress < 1) {
-      // Show random glyphs until near the end
-      const revealed = Math.floor(progress * String(target).length);
-      const targetStr = String(target);
-      let display = '';
-      for (let i = 0; i < targetStr.length; i++) {
-        if (i < revealed) {
-          display += targetStr[i];
-        } else {
-          display += glyphSet[Math.floor(Math.random() * glyphSet.length)];
-        }
-      }
-      el.textContent = display;
-      requestAnimationFrame(step);
-    } else {
-      el.textContent = target;
-    }
+// Decrypt counters
+const glyphs = '0123456789ABCDEFabcdef#@!%&?';
+function decryptCount(el, target, dur) {
+  const frames = Math.round(dur/40); let f=0;
+  function step() {
+    f++;
+    const prog = Math.min(f/frames,1);
+    if(prog<1){
+      const rev = Math.floor(prog*String(target).length);
+      const ts = String(target);
+      let d='';
+      for(let i=0;i<ts.length;i++) d += i<rev ? ts[i] : glyphs[Math.floor(Math.random()*glyphs.length)];
+      el.textContent=d; requestAnimationFrame(step);
+    } else { el.textContent=target; }
   }
   requestAnimationFrame(step);
 }
-
-// Fire stat counters on page load with staggered delays
-window.addEventListener('load', () => {
-  const stats = document.querySelectorAll('.stat-num[data-target]');
-  stats.forEach((el, i) => {
-    const target = parseInt(el.dataset.target, 10);
-    setTimeout(() => decryptCount(el, target, 900), 300 + i * 180);
+window.addEventListener('load',()=>{
+  document.querySelectorAll('.stat-num[data-target]').forEach((el,i)=>{
+    setTimeout(()=>decryptCount(el,parseInt(el.dataset.target),900),300+i*180);
   });
 });
 
-// ── Terminal toggle ──
-let collapsed = false;
-function toggleTerm() {
-  collapsed = !collapsed;
-  document.getElementById('termBox').classList.toggle('is-collapsed', collapsed);
-  document.getElementById('termToggleBtn').classList.toggle('is-collapsed', collapsed);
-  document.getElementById('termBtnLabel').textContent = collapsed ? 'Expand' : 'Collapse';
-  document.getElementById('termHint').textContent = collapsed ? 'click to expand' : 'click to collapse';
+// Terminal toggle
+let collapsed=false;
+function toggleTerm(){
+  collapsed=!collapsed;
+  document.getElementById('termBox').classList.toggle('is-collapsed',collapsed);
+  document.getElementById('termToggleBtn').classList.toggle('is-collapsed',collapsed);
+  document.getElementById('termBtnLabel').textContent=collapsed?'Expand':'Collapse';
+  document.getElementById('termHint').textContent=collapsed?'click to expand':'click to collapse';
 }
 
-// ── Terminal simulation ──
-const tb = document.getElementById('termBody');
-const L = [
-  {t:0,    c:'t-prompt',    s:'[root@arch ~]# wafbuster -d target.com -s $SHODAN_KEY -o report.md'},
-  {t:400,  c:'t-muted',     s:''},
-  {t:550,  c:'t-warn',      s:'  WAFBuster v1.1 // engine initializing...'},
-  {t:850,  c:'t-dim',       s:'────────────────────────────────────────────────────'},
-  {t:1000, c:'t-muted',     s:''},
-  {t:1100, c:'t-info',      s:'[ PHASE 1 ] Connectivity & WAF Detection'},
-  {t:1250, c:'t-dim',       s:'────────────────────────────────────────'},
-  {t:1450, c:'t-info',      s:'[+] HTTPS 200 OK  target.com is alive'},
-  {t:1750, c:'t-red',       s:'[!] WAF DETECTED  CF-Ray: 8a3f2b1c4d9e0a1b-AMS'},
-  {t:2000, c:'t-red',       s:'[!] Server: cloudflare | payload /OR+1=1-- -> 403'},
-  {t:2250, c:'t-muted',     s:''},
-  {t:2350, c:'t-info',      s:'[ PHASE 2 ] Smart Favicon Discovery'},
-  {t:2530, c:'t-dim',       s:'────────────────────────────────────────'},
-  {t:2730, c:'t-info',      s:'[+] HTML <link> -> /static/assets/brand/fav.png'},
-  {t:2950, c:'t-info',      s:'[+] Favicon hash : -1234567890'},
-  {t:3200, c:'t-warn',      s:'[+] Shodan query : http.favicon.hash:-1234567890'},
-  {t:3450, c:'t-muted',     s:''},
-  {t:3550, c:'t-info',      s:'[ PHASE 3 ] Subdomain Enumeration  [4 sources]'},
-  {t:3730, c:'t-dim',       s:'────────────────────────────────────────'},
-  {t:3930, c:'t-info',      s:'[+] subfinder 38 | assetfinder 24 | crt.sh 17'},
-  {t:4230, c:'t-warn',      s:'[+] Total unique : 61 subdomains'},
-  {t:4450, c:'t-muted',     s:''},
-  {t:4550, c:'t-info',      s:'[ PHASE 4.5 ] ASN Filtering'},
-  {t:4730, c:'t-dim',       s:'────────────────────────────────────────'},
-  {t:4930, c:'t-red',       s:'  X  104.21.44.12   AS13335  Cloudflare  [excluded]'},
-  {t:5170, c:'t-red',       s:'  X  172.67.33.88   AS13335  Cloudflare  [excluded]'},
-  {t:5390, c:'t-info',      s:'  +  153.149.33.44  AS7922   Comcast Cable'},
-  {t:5590, c:'t-warn',      s:'  candidates after filter: 2 / 17'},
-  {t:5830, c:'t-muted',     s:''},
-  {t:5930, c:'t-info',      s:'[ PHASE 5 ] Origin Verification  [Ghost Mode]'},
-  {t:6110, c:'t-dim',       s:'────────────────────────────────────────'},
-  {t:6310, c:'t-enc',       s:'  uTLS profile : 43 68 72 6F 6D 65 5F 41 75 74 6F'},
-  {t:6560, c:'t-enc',       s:'  JA3 hash     : 7dc3b2ca9d9f1d02ba822e92ae6f5e49'},
-  {t:6810, c:'t-classified',s:'  SNI_MATRIX   : [0x01 0x03 0x02 0x00] ... [REDACTED]'},
-  {t:7110, c:'t-muted',     s:''},
-  {t:7230, c:'t-origin',    s:'[!!!] ORIGIN FOUND   153.149.33.44'},
-  {t:7430, c:'t-info',      s:'      Method     : uTLS --resolve Chrome (auto)'},
-  {t:7610, c:'t-info',      s:'      HTTP Status : 200 OK  |  TLS 1.3  SNI: on'},
-  {t:7810, c:'t-cert',      s:'      Cert CN     : target.com'},
-  {t:7990, c:'t-cert',      s:'      Cert SANs   : target.com, *.target.com, api.target.com'},
-  {t:8230, c:'t-origin',    s:'      CERT MATCH  : SAN=target.com  [CONFIRMED]'},
-  {t:8480, c:'t-muted',     s:''},
-  {t:8580, c:'t-info',      s:'[ PHASE 5.5 ] Second-Order Bypass  [Layer-2]'},
-  {t:8760, c:'t-dim',       s:'────────────────────────────────────────'},
-  {t:8960, c:'t-red',       s:'[!] 153.149.33.44/admin  HTTP 403  local WAF'},
-  {t:9210, c:'t-classified',s:'  INJECT_SEQ : [X-F-F][X-OIP][X-RIP][X-CIP] [CLASSIFIED]'},
-  {t:9510, c:'t-enc',       s:'  probe byte : 58 2D 46 6F 72 77 61 72 64 65 64 2D 46 6F 72'},
-  {t:9810, c:'t-origin',    s:'[!!!] LAYER-2 BYPASS  X-Forwarded-For:127.0.0.1  403->200'},
-  {t:10050,c:'t-origin',    s:'[!!!] PATH UNLOCKED   /admin  [accessible]'},
-  {t:10280,c:'t-muted',     s:''},
-  {t:10380,c:'t-info',      s:'[ PHASE 6 ] Shodan API  [12 queries]'},
-  {t:10560,c:'t-dim',       s:'────────────────────────────────────────'},
-  {t:10760,c:'t-info',      s:'  [+] ssl.cert.serial    2 results  (1 new)'},
-  {t:11010,c:'t-info',      s:'  [+] http.favicon.hash  4 results  (1 new)'},
-  {t:11260,c:'t-enc',       s:'  SHODAN_RAW : 7b2269705f737472223a223139382e35312e'},
-  {t:11510,c:'t-origin',    s:'[!!!] SHODAN ORIGIN  198.51.100.42  CERT MATCH'},
-  {t:11760,c:'t-muted',     s:''},
-  {t:11860,c:'t-warn',      s:'============== FINAL REPORT =============='},
-  {t:12040,c:'t-info',      s:'  Confirmed Origin IPs  : 2'},
-  {t:12190,c:'t-info',      s:'  Layer-2 Bypasses      : 1'},
-  {t:12340,c:'t-info',      s:'  WAF/CDN IPs excluded  : 15'},
-  {t:12540,c:'t-origin',    s:'  -> 153.149.33.44  curl -k https://153.149.33.44/ -H "Host: target.com"'},
-  {t:12790,c:'t-origin',    s:'  -> 198.51.100.42  curl -k https://198.51.100.42/ -H "Host: target.com"'},
-  {t:13040,c:'t-warn',      s:'=========================================='},
-  {t:13260,c:'t-info',      s:'  report saved -> report.md'},
-  {t:13500,c:'t-muted',     s:''},
-  {t:13700,c:'t-prompt',    s:'[root@arch ~]# \u2588'},
+// Terminal simulation
+const tb=document.getElementById('termBody');
+const L=[
+  {t:0,   c:'t-prompt',    s:'[root@arch ~]# wafbuster -d target.com -s SDF****3a -o report.md'},
+  {t:400, c:'t-muted',     s:''},
+  {t:550, c:'t-warn',      s:'  WAFBuster v1.2 // engine initializing...'},
+  {t:850, c:'t-dim',       s:'────────────────────────────────────────────────────'},
+  {t:1000,c:'t-muted',     s:''},
+  {t:1100,c:'t-info',      s:'[ PHASE 1 ] Connectivity & WAF Detection'},
+  {t:1250,c:'t-dim',       s:'────────────────────────────────────────'},
+  {t:1450,c:'t-info',      s:'[+] HTTPS 200 OK  target.com is alive'},
+  {t:1700,c:'t-red',       s:'[!] WAF DETECTED  CF-Ray: 8a3f2b1c4d9e0a1b-AMS'},
+  {t:1950,c:'t-red',       s:'[!] Rate limit: 4/12 requests blocked (429) — WAF confirmed'},
+  {t:2200,c:'t-muted',     s:''},
+  {t:2300,c:'t-info',      s:'[ PHASE 2 ] Smart Favicon Discovery  [5 strategies]'},
+  {t:2480,c:'t-dim',       s:'────────────────────────────────────────'},
+  {t:2680,c:'t-info',      s:'[+] Strategy-1 failed  — no <link rel=icon>'},
+  {t:2900,c:'t-info',      s:'[+] Strategy-2 keyword scan → /assets/img/fav-icon.png'},
+  {t:3150,c:'t-warn',      s:'[+] Favicon hash : -1234567890'},
+  {t:3400,c:'t-muted',     s:''},
+  {t:3500,c:'t-info',      s:'[ PHASE 3 ] Subdomain Enumeration  [4 sources]'},
+  {t:3680,c:'t-dim',       s:'────────────────────────────────────────'},
+  {t:3880,c:'t-info',      s:'[+] Raw: 2847  →  After relevance filter: 312'},
+  {t:4180,c:'t-muted',     s:''},
+  {t:4280,c:'t-info',      s:'[ PHASE 4.5 ] ASN + IP Prefix Filtering'},
+  {t:4460,c:'t-dim',       s:'────────────────────────────────────────'},
+  {t:4660,c:'t-red',       s:'  X  104.21.44.12   prefix:104.21.  Cloudflare  [instant]'},
+  {t:4900,c:'t-red',       s:'  X  172.67.33.88   prefix:172.67.  Cloudflare  [instant]'},
+  {t:5140,c:'t-red',       s:'  X  185.149.120.5  AS57724  DDoS-Guard  [excluded]'},
+  {t:5380,c:'t-info',      s:'  +  153.149.33.44  AS7922   Comcast Cable'},
+  {t:5580,c:'t-warn',      s:'  candidates: 2 / 19  (60+ ASN ranges applied)'},
+  {t:5820,c:'t-muted',     s:''},
+  {t:5920,c:'t-info',      s:'[ PHASE 5 ] Origin Verification  [Ghost Mode]'},
+  {t:6100,c:'t-dim',       s:'────────────────────────────────────────'},
+  {t:6300,c:'t-enc',       s:'  uTLS profile[0] : Chrome (auto)  JA3=7dc3b2ca9d...'},
+  {t:6550,c:'t-enc',       s:'  uTLS profile[4] : Edge (auto)    JA3=3b5074b1b5...'},
+  {t:6800,c:'t-classified',s:'  SNI_MATRIX : [0x01 0x03 0x02 0x00] ... [REDACTED]'},
+  {t:7100,c:'t-muted',     s:''},
+  {t:7220,c:'t-origin',    s:'[!!!] ORIGIN FOUND   153.149.33.44'},
+  {t:7420,c:'t-info',      s:'      Method     : uTLS --resolve Chrome (auto)'},
+  {t:7600,c:'t-info',      s:'      HTTP Status : 200 OK  |  TLS 1.3  SNI: on'},
+  {t:7800,c:'t-cert',      s:'      Cert CN     : target.com'},
+  {t:7980,c:'t-cert',      s:'      Cert SANs   : target.com, *.target.com, api.target.com'},
+  {t:8220,c:'t-origin',    s:'      CERT MATCH  : SAN=target.com  [CONFIRMED]'},
+  {t:8470,c:'t-muted',     s:''},
+  {t:8570,c:'t-info',      s:'[ PHASE 5.5 ] Second-Order Bypass  [Layer-2]'},
+  {t:8750,c:'t-dim',       s:'────────────────────────────────────────'},
+  {t:8950,c:'t-red',       s:'[!] /admin  HTTP 403  local WAF active'},
+  {t:9200,c:'t-classified',s:'  INJECT [17 headers] × [6 IP groups] × [25 paths]'},
+  {t:9500,c:'t-enc',       s:'  probe: X-Forwarded-For: 58 2D 46 2E 2E 2E 31 36 39 2E 32 35 34'},
+  {t:9800,c:'t-origin',    s:'[!!!] LAYER-2 BYPASS  X-Forwarded-For:127.0.0.1  403->200'},
+  {t:10040,c:'t-origin',   s:'[!!!] PATH UNLOCKED   /admin  [accessible]'},
+  {t:10270,c:'t-muted',    s:''},
+  {t:10370,c:'t-info',     s:'[ PHASE 6 ] Shodan API  [20 queries]'},
+  {t:10550,c:'t-dim',      s:'────────────────────────────────────────'},
+  {t:10750,c:'t-info',     s:'  [+] ssl.cert.serial        2 results  (1 new)'},
+  {t:11000,c:'t-info',     s:'  [+] http.favicon.hash      4 results  (1 new)'},
+  {t:11250,c:'t-info',     s:'  [+] ssl.cert.subject.o     1 result   (0 new)'},
+  {t:11500,c:'t-enc',      s:'  SHODAN_RAW: 7b2269705f737472223a223139382e35312e'},
+  {t:11750,c:'t-origin',   s:'[!!!] SHODAN ORIGIN  198.51.100.42  CERT MATCH'},
+  {t:12000,c:'t-muted',    s:''},
+  {t:12100,c:'t-warn',     s:'============== FINAL REPORT =============='},
+  {t:12280,c:'t-info',     s:'  Confirmed Origin IPs    : 2'},
+  {t:12430,c:'t-info',     s:'  Layer-2 Bypasses        : 1'},
+  {t:12580,c:'t-info',     s:'  WAF/CDN IPs excluded    : 17  (60+ ASN ranges)'},
+  {t:12780,c:'t-origin',   s:'  -> 153.149.33.44  curl -k https://153.149.33.44/ -H "Host: target.com"'},
+  {t:13030,c:'t-origin',   s:'  -> 198.51.100.42  curl -k https://198.51.100.42/ -H "Host: target.com"'},
+  {t:13280,c:'t-warn',     s:'=========================================='},
+  {t:13500,c:'t-info',     s:'  report saved -> report.md'},
+  {t:13750,c:'t-muted',    s:''},
+  {t:13950,c:'t-prompt',   s:'[root@arch ~]# \u2588'},
 ];
 
-let idx = 0;
-let termStarted = false;
-
-function addLine(c, s) {
-  const d = document.createElement('div');
-  if (!s) { d.innerHTML = '&nbsp;'; d.style.lineHeight = '.38'; }
-  else { const sp = document.createElement('span'); sp.className = c; sp.textContent = s; d.appendChild(sp); }
-  tb.appendChild(d);
-  tb.scrollTop = tb.scrollHeight;
+let idx=0,termStarted=false;
+function addLine(c,s){
+  const d=document.createElement('div');
+  if(!s){d.innerHTML='&nbsp;';d.style.lineHeight='.38';}
+  else{const sp=document.createElement('span');sp.className=c;sp.textContent=s;d.appendChild(sp);}
+  tb.appendChild(d);tb.scrollTop=tb.scrollHeight;
 }
-function run() {
-  termStarted = true;
-  if (idx >= L.length) { setTimeout(() => { tb.innerHTML=''; idx=0; run(); }, 3500); return; }
-  const cur = L[idx], nxt = L[idx+1];
-  addLine(cur.c, cur.s);
-  idx++;
-  setTimeout(run, nxt ? Math.max(nxt.t - cur.t, 55) : 800);
+function run(){
+  termStarted=true;
+  if(idx>=L.length){setTimeout(()=>{tb.innerHTML='';idx=0;run();},3500);return;}
+  const cur=L[idx],nxt=L[idx+1];
+  addLine(cur.c,cur.s);idx++;
+  setTimeout(run,nxt?Math.max(nxt.t-cur.t,55):800);
 }
-
-// Watch It Run button — scroll to terminal AND start if not already started
-function watchItRun() {
+function watchItRun(){
   document.getElementById('terminal').scrollIntoView({behavior:'smooth'});
-  if (!termStarted) {
-    // Give scroll time to settle, then start
-    setTimeout(run, 600);
-  }
+  if(!termStarted) setTimeout(run,600);
 }
-
-// Also auto-start when terminal scrolls into view naturally
-const tObs = new IntersectionObserver(es => {
-  if (es[0].isIntersecting && !termStarted) { tObs.disconnect(); setTimeout(run, 500); }
-}, { threshold: .15 });
+const tObs=new IntersectionObserver(es=>{
+  if(es[0].isIntersecting&&!termStarted){tObs.disconnect();setTimeout(run,500);}
+},{threshold:.15});
 tObs.observe(document.getElementById('terminal'));
 </script>
 </body>
